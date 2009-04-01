@@ -1,0 +1,13 @@
+# Sphinx inventory version 1
+# Project: pymc
+# Version: 2.0
+pymc.distributions mod distributions.html
+pymc.distributions.discrete_uniform_like function distributions.html
+pymc.distributions.beta_like function distributions.html
+pymc.distributions.negative_binomial_like function distributions.html
+pymc.distributions.poisson_like function distributions.html
+pymc.distributions.binomial_like function distributions.html
+pymc.distributions.hypergeometric_like function distributions.html
+pymc.distributions.bernoulli_like function distributions.html
+pymc.distributions.geometric_like function distributions.html
+pymc.distributions.categorical_like function distributions.html

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>10. Conclusion &mdash; pymc v2.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pymc v2.0 documentation" href="index.html" />
+    <link rel="next" title="11. Appendix: Markov Chain Monte Carlo" href="theory.html" />
+    <link rel="prev" title="9. Probability distributions" href="distributions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="theory.html" title="11. Appendix: Markov Chain Monte Carlo"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="distributions.html" title="9. Probability distributions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pymc v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/icon_small.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">10. Conclusion</a><ul>
+<li><a class="reference external" href="#what-s-next">10.1. What&#8217;s next?</a></li>
+<li><a class="reference external" href="#how-to-get-involved">10.2. How to get involved</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="distributions.html"
+                                  title="previous chapter">9. Probability distributions</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="theory.html"
+                                  title="next chapter">11. Appendix: Markov Chain Monte Carlo</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/conclusion.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="conclusion">
+<h1>10. Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
+<p>MCMC is a surprisingly difficult and bug-prone algorithm to implement by hand.
+We find PyMC makes it much easier and less stressful. PyMC also makes our work
+more dynamic; getting hand-coded MCMC&#8217;s working used to be so much work that we
+were reluctant to change anything, but with PyMC changing models is a breeze. We
+hope it does the same for you!</p>
+<div class="section" id="what-s-next">
+<h2>10.1. What&#8217;s next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
+<p>A partial list of the features we would like to include in future releases
+follows. Three stars means that only debugging and checking is needed, so the
+feature is likely to be available in release 2.1; two stars means that there are
+no conceptual hurdles to be overcome but there&#8217;s a lot of work left to do; and
+one star means only experimental development has been done.</p>
+<ul class="simple">
+<li>(***) Gibbs step methods to handle conjugate and nearly-conjugate
+submodels,</li>
+<li>(***) Handling all-normal submodels with sparse linear algebra
+<a class="reference external" href="references.html#wilkinson-2004">[Wilkinson:2004]</a>. This will help PyMC handle Markov random fields and time-
+series models based on the &#8216;dynamic linear model&#8217; <a class="reference external" href="references.html#west-1997">[West:1997]</a> (among others)
+more efficiently, in some cases fitting them in closed form,</li>
+<li>(**) Generic Monte Carlo EM and SEM algorithms,</li>
+<li>(**) Parallelizing single chains with a thread pool,</li>
+<li>(**) Terse syntax inspired by <a class="reference external" href="references.html#kerman-2004">[Kerman:2004]</a> for creating variables: <tt class="docutils literal"><span class="pre">C=A*B</span></tt>
+should return a deterministic object if <img class="math" src="_images/math/019e9892786e493964e145e7c5cf7b700314e53b.png" alt="A"/> and/or <img class="math" src="_images/math/ff5fb3d775862e2123b007eb4373ff6cc1a34d4e.png" alt="B"/> is a PyMC
+variable,</li>
+<li>(**) Distributing multiple chains across multiple processes,</li>
+<li>(*) Parsers for model-definition syntax from R and WinBugs,</li>
+<li>(*) Dirichlet processes and other stick-breaking processes <a class="reference external" href="references.html#ishwaran-2001">[Ishwaran:2001]</a>.</li>
+</ul>
+<p>These features will make their way into future releases as (and if) we are able
+to finish them and make them reliable.</p>
+</div>
+<div class="section" id="how-to-get-involved">
+<h2>10.2. How to get involved<a class="headerlink" href="#how-to-get-involved" title="Permalink to this headline">¶</a></h2>
+<p>We welcome new contributors at all levels. If you would like to contribute to
+any of the features above, or to improve PyMC itself in some other way, please
+introduce yourself on our <a class="reference external" href="mailto:pymc&#37;&#52;&#48;googlegroups&#46;com">mailing list</a>. If you
+would like to share code written in PyMC, for example a tutorial or a
+specialized step method, please feel free to edit our <a class="reference external" href="http://code.google.com/p/pymc/w/list">wiki page</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="theory.html" title="11. Appendix: Markov Chain Monte Carlo"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="distributions.html" title="9. Probability distributions"
+             >previous</a> |</li>
+        <li><a href="index.html">pymc v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Chris Fonnesbeck, Anand Patil, David Huard.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.7.
+    </div>
+  </body>
+</html>

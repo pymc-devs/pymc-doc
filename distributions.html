@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>9. Probability distributions &mdash; pymc v2.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pymc v2.0 documentation" href="index.html" />
+    <link rel="next" title="10. Conclusion" href="conclusion.html" />
+    <link rel="prev" title="8. Extending PyMC" href="extending.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="conclusion.html" title="10. Conclusion"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="extending.html" title="8. Extending PyMC"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pymc v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/icon_small.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">9. Probability distributions</a><ul>
+<li><a class="reference external" href="#discrete-distributions">9.1. Discrete distributions</a></li>
+<li><a class="reference external" href="#continuous-distributions">9.2. Continuous distributions</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="extending.html"
+                                  title="previous chapter">8. Extending PyMC</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="conclusion.html"
+                                  title="next chapter">10. Conclusion</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/distributions.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pymc.distributions">
+<span id="chap-distributions"></span><h1>9. Probability distributions<a class="headerlink" href="#module-pymc.distributions" title="Permalink to this headline">¶</a></h1>
+<p>PyMC provides 35 built-in probability distributions. For each distribution, it provides:</p>
+<ul class="simple">
+<li>A function that evaluates its log-probability or log-density: normal_like().</li>
+<li>A function that draws random variables: rnormal().</li>
+<li>A function that computes the expectation associated with the distribution: normal_expval().</li>
+<li>A Stochastic subclass generated from the distribution: Normal.</li>
+</ul>
+<p>This section describes the likelihood functions of these distributions.</p>
+<div class="section" id="discrete-distributions">
+<h2>9.1. Discrete distributions<a class="headerlink" href="#discrete-distributions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pymc.distributions.bernoulli_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">bernoulli_like</tt><big>(</big><em>x</em>, <em>p</em><big>)</big><a class="headerlink" href="#pymc.distributions.bernoulli_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bernoulli log-likelihood</p>
+<p>The Bernoulli distribution describes the probability of successes (x=1) and
+failures (x=0).</p>
+<div class="math">
+<p><img src="_images/math/7ab296b6d20149259e61030d5f57f259ff8c6115.png" alt="f(x \mid p) = p^{x} (1-p)^{1-x}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>x</cite> : Series of successes (1) and failures (0). <img class="math" src="_images/math/7284a43209432ed202230527d545082dbe571ec0.png" alt="x=0,1"/></li>
+<li><cite>p</cite> : Probability of success. <img class="math" src="_images/math/a8428d3f1481151fd0d4af3684d044530e4c31f2.png" alt="0 &lt; p &lt; 1"/>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Example:</th><td class="field-body"><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bernoulli_like</span><span class="p">([</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">],</span> <span class="o">.</span><span class="mf">4</span><span class="p">)</span>
+<span class="go">-2.8542325496673584</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/a457a69b2ca8285b944393931a8fc7a6a3345d46.png" alt="E(x)= p"/></li>
+<li><img class="math" src="_images/math/416095b0036e6e4c159645c29becd07749aacda8.png" alt="Var(x)= p(1-p)"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.binomial_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">binomial_like</tt><big>(</big><em>x</em>, <em>n</em>, <em>p</em><big>)</big><a class="headerlink" href="#pymc.distributions.binomial_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>binomial_like(x, n, p)</p>
+<p>Binomial log-likelihood.  The discrete probability distribution of the
+number of successes in a sequence of n independent yes/no experiments,
+each of which yields success with probability p.</p>
+<div class="math">
+<p><img src="_images/math/22ea52b849e65c2a1da23abb941f099669466f15.png" alt="f(x \mid n, p) = \frac{n!}{x!(n-x)!} p^x (1-p)^{n-x}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : [int] Number of successes, &gt; 0.</li>
+<li><cite>n</cite> : [int] Number of Bernoulli trials, &gt; x.</li>
+<li><cite>p</cite> : Probability of success in each trial, <img class="math" src="_images/math/9a166bd495b11b44a0377acbaa13411ac5e027b9.png" alt="p \in [0,1]"/>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/5d72d672c97e09b1fb1435cb77e488b19a5f25bf.png" alt="E(X)=np"/></li>
+<li><img class="math" src="_images/math/e9faae5d3a373d3f4a59392b18e26d2132d21bc4.png" alt="Var(X)=np(1-p)"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.categorical_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">categorical_like</tt><big>(</big><em>x</em>, <em>p</em><big>)</big><a class="headerlink" href="#pymc.distributions.categorical_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>categorical_like(x,p)</p>
+<p>Categorical log-likelihood. The most general discrete distribution.</p>
+<div class="math">
+<p><img src="_images/math/a7e6d028d3496e3f1592307d769451d724dd1ee4.png" alt="f(x=i \mid p) = p_i for i \in 0 \ldots k-1" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : [int] <img class="math" src="_images/math/93f5b78d367d8ade04ef72e01de4c522f1e1a3c1.png" alt="x \in 0\ldots k-1"/></li>
+<li><cite>p</cite> : [float] <img class="math" src="_images/math/19bf07ceb43df8c7388742c5c1a3667791306791.png" alt="p &gt; 0"/>, <img class="math" src="_images/math/111c93c069d1513e34a1c72adfb0973316f2c616.png" alt="\sum p = 1"/></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.discrete_uniform_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">discrete_uniform_like</tt><big>(</big><em>x</em>, <em>lower</em>, <em>upper</em><big>)</big><a class="headerlink" href="#pymc.distributions.discrete_uniform_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>discrete_uniform_like(x, lower, upper)</p>
+<p>Discrete uniform log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/2358a7176dee4dac02295a17f0019b634b8c927a.png" alt="f(x \mid lower, upper) = \frac{1}{upper-lower}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/ba9396284e9c2876b0204b3c03bd4b9e68df0c8e.png" alt="lower \leq x \leq upper"/></p>
+</dd>
+<dt>lower <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Lower limit.</p>
+</dd>
+<dt>upper <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Upper limit.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.geometric_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">geometric_like</tt><big>(</big><em>x</em>, <em>p</em><big>)</big><a class="headerlink" href="#pymc.distributions.geometric_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>geometric_like(x, p)</p>
+<p>Geometric log-likelihood. The probability that the first success in a
+sequence of Bernoulli trials occurs on the x&#8217;th trial.</p>
+<div class="math">
+<p><img src="_images/math/7e4bf16c018fc3574edb585ba217d57a5a6e7818.png" alt="f(x \mid p) = p(1-p)^{x-1}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Number of trials before first success, &gt; 0.</p>
+</dd>
+<dt>p <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Probability of success on an individual trial, <img class="math" src="_images/math/9a166bd495b11b44a0377acbaa13411ac5e027b9.png" alt="p \in [0,1]"/></p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Note:</th><td class="field-body"><ul class="first last simple">
+<li><img class="math" src="_images/math/b4677b64e963aeae6db3ccf26565ed088404f417.png" alt="E(X)=1/p"/></li>
+<li><img class="math" src="_images/math/455392198ea737406bbfbbfefde4df58dc645071.png" alt="Var(X)=\frac{1-p}{p^2}"/></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.hypergeometric_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">hypergeometric_like</tt><big>(</big><em>x</em>, <em>n</em>, <em>m</em>, <em>N</em><big>)</big><a class="headerlink" href="#pymc.distributions.hypergeometric_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>hypergeometric_like(x, n, m, N)</p>
+<p>Hypergeometric log-likelihood. Discrete probability distribution that
+describes the number of successes in a sequence of draws from a finite
+population without replacement.</p>
+<div class="math">
+<p><img src="_images/math/0f8c7f01cb51a33a91dcb7b050216ade7876083f.png" alt="f(x \mid n, m, N) = \frac{\binom{m}{x}\binom{N-m}{n-x}}{\binom{N}{n}}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Number of successes in a sample drawn from a population.
+<img class="math" src="_images/math/4be87969a20371f35ea1bc341f3e28c6138f38ce.png" alt="\max(0, draws-failures) \leq x \leq \min(draws, success)"/></p>
+</dd>
+<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Size of sample drawn from the population.</p>
+</dd>
+<dt>m <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Number of successes in the population.</p>
+</dd>
+<dt>N <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Total number of units in the population.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><img class="math" src="_images/math/36be537c61aa3a07f0c634d67028b5fe599b5352.png" alt="E(X) = \frac{n n}{N}"/></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.negative_binomial_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">negative_binomial_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>alpha</em><big>)</big><a class="headerlink" href="#pymc.distributions.negative_binomial_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>negative_binomial_like(x, mu, alpha)</p>
+<p>Negative binomial log-likelihood. The negative binomial distribution describes a
+Poisson random variable whose rate parameter is gamma distributed. PyMC&#8217;s chosen
+parameterization makes this mixture interpretation more convenient to work with.</p>
+<div class="math">
+<p><img src="_images/math/81e34086680726d02122f9c659a6476b88ccdf5d.png" alt="f(x \mid \mu, \alpha) = \frac{\Gamma(x+\alpha)}{x! \Gamma(\alpha)} (\alpha/(\mu+\alpha))^\alpha (\mu/(\mu+\alpha))^x" />
+</div></p><p>x &gt; 0, mu &gt; 0, alpha &gt; 0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Note:</th><td class="field-body"><ul class="first last">
+<li><table class="first docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">math:</th><td class="field-body">E[x]=mu</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">In Wikipedia&#8217;s parameterization,
+:math: r=alpha
+:math: p=alpha/(mu+alpha)
+:math: mu=r(1-p)/p</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.poisson_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">poisson_like</tt><big>(</big><em>x</em>, <em>mu</em><big>)</big><a class="headerlink" href="#pymc.distributions.poisson_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>poisson_like(x,mu)</p>
+<p>Poisson log-likelihood. The Poisson is a discrete probability distribution.
+It is often used to model the number of events occurring in a fixed period of
+time when the times at which events occur are independent. The Poisson
+distribution can be derived as a limiting case of the binomial distribution.</p>
+<div class="math">
+<p><img src="_images/math/cd06792a92daad3415b2bb0bab1b4ae81d388db8.png" alt="f(x \mid \mu) = \frac{e^{-\mu}\mu^x}{x!}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/fed858b3bd1116a1eaa56152b7118b41c0c14cde.png" alt="x \in {0,1,2,...}"/></p>
+</dd>
+<dt>mu <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Expected number of occurrences that occur during the given interval,
+<img class="math" src="_images/math/34621133e43edbbc13619bb41df8f15bde6c8c9f.png" alt="\mu \geq 0"/>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/3f49bed56fbfb892e448dd69683bf404563df381.png" alt="E(x)=\mu"/></li>
+<li><img class="math" src="_images/math/c87559e912d64e83268f2135c75f7e984011fc0a.png" alt="Var(x)=\mu"/></li>
+</ul>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="continuous-distributions">
+<h2>9.2. Continuous distributions<a class="headerlink" href="#continuous-distributions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pymc.distributions.beta_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">beta_like</tt><big>(</big><em>x</em>, <em>alpha</em>, <em>beta</em><big>)</big><a class="headerlink" href="#pymc.distributions.beta_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>beta_like(x, alpha, beta)</p>
+<p>Beta log-likelihood. The conjugate prior for the parameter :math: <cite>p</cite> of the binomial distribution.</p>
+<div class="math">
+<p><img src="_images/math/dcd59d05027e5056d8ce3fab2ef873deadbac48b.png" alt="f(x \mid \alpha, \beta) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} x^{\alpha - 1} (1 - x)^{\beta - 1}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">0 &lt; x &lt; 1</p>
+</dd>
+<dt>alpha <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">alpha &gt; 0</p>
+</dd>
+<dt>beta <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">beta &gt; 0</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Example:</th><td class="field-body"><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">beta_like</span><span class="p">(</span><span class="o">.</span><span class="mf">4</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
+<span class="go">0.18232160806655884</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/834d3385ef40e9968c1577f58fbbd159316cba08.png" alt="E(X)=\frac{\alpha}{\alpha+\beta}"/></li>
+<li><img class="math" src="_images/math/f7f74992f63ab0997d16794ef1dc8adbcf29f428.png" alt="Var(X)=\frac{\alpha \beta}{(\alpha+\beta)^2(\alpha+\beta+1)}"/></li>
+</ul>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="conclusion.html" title="10. Conclusion"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="extending.html" title="8. Extending PyMC"
+             >previous</a> |</li>
+        <li><a href="index.html">pymc v2.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Chris Fonnesbeck, Anand Patil, David Huard.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.7.
+    </div>
+  </body>
+</html>
