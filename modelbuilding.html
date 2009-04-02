@@ -24,6 +24,10 @@
     <link rel="prev" title="3. Tutorial" href="tutorial.html" /> 
   </head>
   <body>
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<img src="_static/bannertext2.png" alt="PyMC logo" />
+</div>
+
     <div class="related">
       <h3>Navigation</h3>
       <ul>
@@ -31,12 +35,18 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
           <a href="modelfitting.html" title="5. Fitting Models"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="tutorial.html" title="3. Tutorial"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pymc v2.0 documentation</a> &raquo;</li> 
+        <li><a href="http://code.google.com/p/pymc/">PyMC home</a>&nbsp;|&nbsp;</li>
+        <li><a href="index.html">User Guide</a>&nbsp;|&nbsp;</li>
+        <li><a href="api.html">API Documentation</a>&raquo;</li>
+ 
       </ul>
     </div>
       <div class="sphinxsidebar">
@@ -124,7 +134,7 @@ and/or constraints that are multiplied into joint distributions to modify them.
 awareness of the models in which they are embedded and do not themselves possess
 methods for updating their values in fitting algorithms. Objects responsible for
 fitting probability models are described in chapter <a class="reference external" href="modelfitting.html#chap-modelfitting"><em>Fitting Models</em></a>.</p>
-<div class="admonition-todo admonition " id="todo-1">
+<div class="admonition-todo admonition " id="todo-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">Need a better description of what a Potential is. Given the description
 of Stochastic and Deterministic we have given, its not clear where
@@ -180,14 +190,14 @@ is enforced.</dd>
 <dl class="docutils">
 <dt><strong>Automatic</strong></dt>
 <dd><p class="first">Stochastic variables with standard distributions provided by PyMC (see chapter
-<em class="xref">chap:distributions</em>) can be created in a single line using special
+<a class="reference external" href="distributions.html#chap-distributions"><em>Probability distributions</em></a>) can be created in a single line using special
 subclasses of <tt class="docutils literal"><span class="pre">Stochastic</span></tt>. For example, the uniformly-distributed discrete
 variable <img class="math" src="_images/math/f37bba504894945c07a32f5496d74299a37aa51c.png" alt="s"/> in (<a href="#equation-disastermodel">(?)</a>) could be created using the
 automatic interface as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">DiscreteUniform</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">,</span> <span class="mf">1851</span><span class="p">,</span> <span class="mf">1962</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1900</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In addition to the classes in chapter <em class="xref">chap:distributions</em>,
+<p>In addition to the classes in chapter <a class="reference external" href="distributions.html#chap-distributions"><em>Probability distributions</em></a>,
 <tt class="docutils literal"><span class="pre">scipy.stats.distributions</span></tt>&#8216; random variable classes are wrapped as
 <tt class="docutils literal"><span class="pre">Stochastic</span></tt> subclasses if SciPy is installed. These distributions are in the
 submodule <tt class="docutils literal"><span class="pre">pymc.SciPyDistributions</span></tt>.</p>
@@ -773,12 +783,18 @@ accidental misuse.</td></tr>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="modelfitting.html" title="5. Fitting Models"
              >next</a> |</li>
         <li class="right" >
           <a href="tutorial.html" title="3. Tutorial"
              >previous</a> |</li>
-        <li><a href="index.html">pymc v2.0 documentation</a> &raquo;</li> 
+        <li><a href="http://code.google.com/p/pymc/">PyMC home</a>&nbsp;|&nbsp;</li>
+        <li><a href="index.html">User Guide</a>&nbsp;|&nbsp;</li>
+        <li><a href="api.html">API Documentation</a>&raquo;</li>
+ 
       </ul>
     </div>
     <div class="footer">
