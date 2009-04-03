@@ -481,11 +481,14 @@ then updated each ``interval`` iterations throughout the entire sampling run
 chain non-Markovian.
 
 
+
 .. _gibbs:
 
 Gibbs step methods
 ==================
 
+.. versionadded:: 2.1
+   Added Gibbs step methods
 
 Conjugate submodels (see [Gelman:2004]_) can be handled by Gibbs step methods rather
 than the default Metropolis methods. Gibbs step methods are Metropolis methods

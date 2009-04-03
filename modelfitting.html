@@ -5,13 +5,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>5. Fitting Models &mdash; pymc v2.0 documentation</title>
+    <title>5. Fitting Models &mdash; pymc v2.1.alpha documentation</title>
     <link rel="stylesheet" href="_static/pymcdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '2.0',
+        VERSION:     '2.1.alpha',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -19,7 +19,7 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pymc v2.0 documentation" href="index.html" />
+    <link rel="top" title="pymc v2.1.alpha documentation" href="index.html" />
     <link rel="next" title="6. Saving and managing sampling results" href="database.html" />
     <link rel="prev" title="4. Building models" href="modelbuilding.html" /> 
   </head>
@@ -504,6 +504,8 @@ chain non-Markovian.</p>
 </div>
 <div class="section" id="gibbs-step-methods">
 <span id="gibbs"></span><h2>5.6. Gibbs step methods<a class="headerlink" href="#gibbs-step-methods" title="Permalink to this headline">¶</a></h2>
+<p>
+<span class="versionmodified">New in version 2.1: </span>Added Gibbs step methods</p>
 <p>Conjugate submodels (see <a class="reference external" href="references.html#gelman-2004">[Gelman:2004]</a>) can be handled by Gibbs step methods rather
 than the default Metropolis methods. Gibbs step methods are Metropolis methods
 whose acceptance rate is always 1. They can be convenient because they relieve

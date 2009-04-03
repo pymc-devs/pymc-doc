@@ -6,6 +6,11 @@
 PyMC's User Guide
 =================
 
+.. only:: html
+
+    :Release: |version|
+    :Date: |today|
+
 Table of contents 
 -----------------
 
@@ -26,7 +31,7 @@ Table of contents
    theory
    references
 
-   
+
 The incomplete laundry list
 ===========================
 
@@ -40,3 +45,8 @@ Indices and tables
 * :ref:`search`
 * :ref:`api`
 
+
+.. toctree::
+   :hidden:
+
+   api

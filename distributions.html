@@ -5,13 +5,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>9. Probability distributions &mdash; pymc v2.0 documentation</title>
+    <title>9. Probability distributions &mdash; pymc v2.1.alpha documentation</title>
     <link rel="stylesheet" href="_static/pymcdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '2.0',
+        VERSION:     '2.1.alpha',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -19,7 +19,7 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pymc v2.0 documentation" href="index.html" />
+    <link rel="top" title="pymc v2.1.alpha documentation" href="index.html" />
     <link rel="next" title="10. Conclusion" href="conclusion.html" />
     <link rel="prev" title="8. Extending PyMC" href="extending.html" /> 
   </head>
@@ -59,6 +59,8 @@
 <li><a class="reference external" href="">9. Probability distributions</a><ul>
 <li><a class="reference external" href="#discrete-distributions">9.1. Discrete distributions</a></li>
 <li><a class="reference external" href="#continuous-distributions">9.2. Continuous distributions</a></li>
+<li><a class="reference external" href="#multivariate-discrete-distributions">9.3. Multivariate discrete distributions</a></li>
+<li><a class="reference external" href="#multivariate-continuous-distributions">9.4. Multivariate continuous distributions</a></li>
 </ul>
 </li>
 </ul>
@@ -179,8 +181,9 @@ each of which yields success with probability p.</p>
 <dd><p>categorical_like(x,p)</p>
 <p>Categorical log-likelihood. The most general discrete distribution.</p>
 <div class="math">
-<p><img src="_images/math/a7e6d028d3496e3f1592307d769451d724dd1ee4.png" alt="f(x=i \mid p) = p_i for i \in 0 \ldots k-1" />
-</div></p><table class="docutils field-list" frame="void" rules="none">
+<p><img src="_images/math/192eade504c814b9de4b4656e822198f5b57cf41.png" alt="f(x=i \mid p) = p_i" />
+</div></p><p>for <img class="math" src="_images/math/dc0dbaf94cda0c4d8c9970f1c0f2e92b87b04211.png" alt="i \in 0 \ldots k-1"/>.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -205,17 +208,11 @@ each of which yields success with probability p.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
-<dd><p class="first last"><img class="math" src="_images/math/ba9396284e9c2876b0204b3c03bd4b9e68df0c8e.png" alt="lower \leq x \leq upper"/></p>
-</dd>
-<dt>lower <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Lower limit.</p>
-</dd>
-<dt>upper <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Upper limit.</p>
-</dd>
-</dl>
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : [int] <img class="math" src="_images/math/ba9396284e9c2876b0204b3c03bd4b9e68df0c8e.png" alt="lower \leq x \leq upper"/></li>
+<li><cite>lower</cite> : Lower limit.</li>
+<li><cite>upper</cite> : Upper limit (upper &gt; lower).</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -234,24 +231,21 @@ sequence of Bernoulli trials occurs on the x&#8217;th trial.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of trials before first success, &gt; 0.</p>
-</dd>
-<dt>p <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Probability of success on an individual trial, <img class="math" src="_images/math/9a166bd495b11b44a0377acbaa13411ac5e027b9.png" alt="p \in [0,1]"/></p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Note:</th><td class="field-body"><ul class="first last simple">
-<li><img class="math" src="_images/math/b4677b64e963aeae6db3ccf26565ed088404f417.png" alt="E(X)=1/p"/></li>
-<li><img class="math" src="_images/math/455392198ea737406bbfbbfefde4df58dc645071.png" alt="Var(X)=\frac{1-p}{p^2}"/></li>
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : [int] Number of trials before first success (x &gt; 0).</li>
+<li><cite>p</cite> : Probability of success on an individual trial, <img class="math" src="_images/math/9a166bd495b11b44a0377acbaa13411ac5e027b9.png" alt="p \in [0,1]"/></li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/b4677b64e963aeae6db3ccf26565ed088404f417.png" alt="E(X)=1/p"/></li>
+<li><img class="math" src="_images/math/455392198ea737406bbfbbfefde4df58dc645071.png" alt="Var(X)=\frac{1-p}{p^2}"/></li>
+</ul>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -267,21 +261,20 @@ population without replacement.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of successes in a sample drawn from a population.
-<img class="math" src="_images/math/4be87969a20371f35ea1bc341f3e28c6138f38ce.png" alt="\max(0, draws-failures) \leq x \leq \min(draws, success)"/></p>
-</dd>
-<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Size of sample drawn from the population.</p>
-</dd>
-<dt>m <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of successes in the population.</p>
-</dd>
-<dt>N <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Total number of units in the population.</p>
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last">
+<li><dl class="first docutils">
+<dt><cite>x</cite> <span class="classifier-delimiter">:</span> <span class="classifier">[int] Number of successes in a sample drawn from a population.</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/4be87969a20371f35ea1bc341f3e28c6138f38ce.png" alt="\max(0, draws-failures) \leq x \leq \min(draws, success)"/></p>
 </dd>
 </dl>
+</li>
+<li><p class="first"><cite>n</cite> : [int] Size of sample drawn from the population.</p>
+</li>
+<li><p class="first"><cite>m</cite> : [int] Number of successes in the population.</p>
+</li>
+<li><p class="first"><cite>N</cite> : [int] Total number of units in the population.</p>
+</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -302,11 +295,9 @@ parameterization makes this mixture interpretation more convenient to work with.
 <div class="math">
 <p><img src="_images/math/81e34086680726d02122f9c659a6476b88ccdf5d.png" alt="f(x \mid \mu, \alpha) = \frac{\Gamma(x+\alpha)}{x! \Gamma(\alpha)} (\alpha/(\mu+\alpha))^\alpha (\mu/(\mu+\alpha))^x" />
 </div></p><p>x &gt; 0, mu &gt; 0, alpha &gt; 0</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Note:</th><td class="field-body"><ul class="first last">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last">
 <li><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -322,10 +313,7 @@ parameterization makes this mixture interpretation more convenient to work with.
 :math: mu=r(1-p)/p</p>
 </li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -342,15 +330,16 @@ distribution can be derived as a limiting case of the binomial distribution.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last"><img class="math" src="_images/math/fed858b3bd1116a1eaa56152b7118b41c0c14cde.png" alt="x \in {0,1,2,...}"/></p>
-</dd>
-<dt>mu <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Expected number of occurrences that occur during the given interval,
-<img class="math" src="_images/math/34621133e43edbbc13619bb41df8f15bde6c8c9f.png" alt="\mu \geq 0"/>.</p>
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last">
+<li><p class="first"><cite>x</cite> : [int] <img class="math" src="_images/math/fed858b3bd1116a1eaa56152b7118b41c0c14cde.png" alt="x \in {0,1,2,...}"/></p>
+</li>
+<li><dl class="first docutils">
+<dt><cite>mu</cite> <span class="classifier-delimiter">:</span> <span class="classifier">Expected number of occurrences during the given interval,</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/34621133e43edbbc13619bb41df8f15bde6c8c9f.png" alt="\mu \geq 0"/>.</p>
 </dd>
 </dl>
+</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -378,17 +367,11 @@ distribution can be derived as a limiting case of the binomial distribution.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">0 &lt; x &lt; 1</p>
-</dd>
-<dt>alpha <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">alpha &gt; 0</p>
-</dd>
-<dt>beta <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">beta &gt; 0</p>
-</dd>
-</dl>
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><cite>x</cite> : 0 &lt; x &lt; 1</li>
+<li><cite>alpha</cite> : alpha &gt; 0</li>
+<li><cite>beta</cite> : beta &gt; 0</li>
+</ul>
 </td>
 </tr>
 <tr class="field"><th class="field-name">Example:</th><td class="field-body"><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">beta_like</span><span class="p">(</span><span class="o">.</span><span class="mf">4</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
@@ -406,6 +389,818 @@ distribution can be derived as a limiting case of the binomial distribution.</p>
 <li><img class="math" src="_images/math/f7f74992f63ab0997d16794ef1dc8adbcf29f428.png" alt="Var(X)=\frac{\alpha \beta}{(\alpha+\beta)^2(\alpha+\beta+1)}"/></li>
 </ul>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.cauchy_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">cauchy_like</tt><big>(</big><em>x</em>, <em>alpha</em>, <em>beta</em><big>)</big><a class="headerlink" href="#pymc.distributions.cauchy_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>cauchy_like(x, alpha, beta)</p>
+<p>Cauchy log-likelihood. The Cauchy distribution is also known as the
+Lorentz or the Breit-Wigner distribution.</p>
+<div class="math">
+<p><img src="_images/math/992be8a28ba37c0fe2e18084d049fbc3c52d0c7e.png" alt="f(x \mid \alpha, \beta) = \frac{1}{\pi \beta [1 + (\frac{x-\alpha}{\beta})^2]}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>alpha</cite> : Location parameter.</li>
+<li><cite>beta</cite> : Scale parameter &gt; 0.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Mode and median are at alpha.</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.chi2_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">chi2_like</tt><big>(</big><em>x</em>, <em>nu</em><big>)</big><a class="headerlink" href="#pymc.distributions.chi2_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>chi2_like(x, nu)</p>
+<p>Chi-squared <img class="math" src="_images/math/a61c1e51680e27d35d05bebed87d474972fc70bd.png" alt="\chi^2"/> log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/b3e5f06ddc93af6605059a4ca216f21714d83d88.png" alt="f(x \mid \nu) = \frac{x^{(\nu-2)/2}e^{-x/2}}{2^{\nu/2}\Gamma(\nu/2)}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : &gt; 0</li>
+<li><cite>nu</cite> : [int] Degrees of freedom ( nu &gt; 0 )</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/e0d5e8ef5687484455259d1036ae084717e38908.png" alt="E(X)=\nu"/></li>
+<li><img class="math" src="_images/math/9082a8a5c72149a6a2bbde10746be7d08b23e3d8.png" alt="Var(X)=2\nu"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.degenerate_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">degenerate_like</tt><big>(</big><em>x</em>, <em>k</em><big>)</big><a class="headerlink" href="#pymc.distributions.degenerate_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>degenerate_like(x, k)</p>
+<p>Degenerate log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/2003e7f62933185e19eb1556e1612943c9582c3e.png" alt="f(x \mid k) = \left\{ \begin{matrix} 1 \text{ if } x = k \\ 0 \text{ if } x \ne k\end{matrix} \right." />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : Input value.</li>
+<li><cite>k</cite> : Degenerate value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.exponential_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">exponential_like</tt><big>(</big><em>x</em>, <em>beta</em><big>)</big><a class="headerlink" href="#pymc.distributions.exponential_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>exponential_like(x, beta)</p>
+<p>Exponential log-likelihood.</p>
+<p>The exponential distribution is a special case of the gamma distribution
+with alpha=1. It often describes the time until an event.</p>
+<div class="math">
+<p><img src="_images/math/489f79de8e563c5f5e8eb134c3d2eca45a305757.png" alt="f(x \mid \beta) = \frac{1}{\beta}e^{-x/\beta}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : x &gt; 0</li>
+<li><cite>beta</cite> : Survival parameter (beta &gt; 0).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/01fdefb3efd84ffde6cb8f3ed038cd76d91b73c4.png" alt="E(X) = \beta"/></li>
+<li><img class="math" src="_images/math/0f98a9c7e60c7142e78de0eea2d9811de198bb87.png" alt="Var(X) = \beta^2"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.exponweib_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">exponweib_like</tt><big>(</big><em>x</em>, <em>alpha</em>, <em>k</em>, <em>loc=0</em>, <em>scale=1</em><big>)</big><a class="headerlink" href="#pymc.distributions.exponweib_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>exponweib_like(x,alpha,k,loc=0,scale=1)</p>
+<p>Exponentiated Weibull log-likelihood.</p>
+<p>The exponentiated Weibull distribution is a generalization of the Weibull
+family. Its value lies in being able to model monotone and non-monotone
+failure rates.</p>
+<div class="math">
+<p><img src="_images/math/5e517f64a5a7a6a29aea8e8f2d2a02e6defa0272.png" alt="f(x \mid \alpha,k,loc,scale)  &amp; = \frac{\alpha k}{scale} (1-e^{-z^k})^{\alpha-1} e^{-z^k} z^{k-1} \\
+z &amp; = \frac{x-loc}{scale}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : x &gt; 0</li>
+<li><cite>alpha</cite> : Shape parameter</li>
+<li><cite>k</cite> : k &gt; 0</li>
+<li><cite>loc</cite> : Location parameter</li>
+<li><cite>scale</cite> : Scale parameter (scale &gt; 0).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.gamma_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">gamma_like</tt><big>(</big><em>x</em>, <em>alpha</em>, <em>beta</em><big>)</big><a class="headerlink" href="#pymc.distributions.gamma_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>gamma_like(x, alpha, beta)</p>
+<p>Gamma log-likelihood.</p>
+<p>Represents the sum of alpha exponentially distributed random variables, each
+of which has mean beta.</p>
+<div class="math">
+<p><img src="_images/math/b6233e82c9c4168d92e51a42e4b8ca948b5043c6.png" alt="f(x \mid \alpha, \beta) = \frac{\beta^{\alpha}x^{\alpha-1}e^{-\beta x}}{\Gamma(\alpha)}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/dff5a847457c4beaa2c6809fc9d7b26ebcaa398e.png" alt="x \ge 0"/></p>
+</dd>
+<dt>alpha <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Shape parameter <img class="math" src="_images/math/ade49fc358cadd4f54efd729c4158cb71a401e45.png" alt="\alpha &gt; 0"/>.</p>
+</dd>
+<dt>beta <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Scale parameter <img class="math" src="_images/math/94743da67e328791ae9ab18722eb0783f1201bfe.png" alt="\beta &gt; 0"/>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/8708899227596d8874866d8cdc2a07e3b8554a11.png" alt="E(X) = \frac{\alpha}{\beta}"/></li>
+<li><img class="math" src="_images/math/ea5fae750a10a24b29973a54bf5028eb532c568a.png" alt="Var(X) = \frac{\alpha}{\beta^2}"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.half_normal_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">half_normal_like</tt><big>(</big><em>x</em>, <em>tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.half_normal_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>half_normal_like(x, tau)</p>
+<p>Half-normal log-likelihood, a normal distribution with mean 0 and limited
+to the domain <img class="math" src="_images/math/17ed069d89485786ec43e6d586382c19c8c4f6f1.png" alt="x \in [0, \infty)"/>.</p>
+<div class="math">
+<p><img src="_images/math/52e592febe707605d3268bc68c6842a923b28ec7.png" alt="f(x \mid \tau) = \sqrt{\frac{2\tau}{\pi}}\exp\left\{ {\frac{-x^2 \tau}{2}}\right\}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : <img class="math" src="_images/math/dff5a847457c4beaa2c6809fc9d7b26ebcaa398e.png" alt="x \ge 0"/></li>
+<li><cite>tau</cite> : tau &gt; 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">hypergeometric_like</tt><big>(</big><em>x</em>, <em>n</em>, <em>m</em>, <em>N</em><big>)</big></dt>
+<dd><p>hypergeometric_like(x, n, m, N)</p>
+<p>Hypergeometric log-likelihood. Discrete probability distribution that
+describes the number of successes in a sequence of draws from a finite
+population without replacement.</p>
+<div class="math">
+<p><img src="_images/math/0f8c7f01cb51a33a91dcb7b050216ade7876083f.png" alt="f(x \mid n, m, N) = \frac{\binom{m}{x}\binom{N-m}{n-x}}{\binom{N}{n}}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last">
+<li><dl class="first docutils">
+<dt><cite>x</cite> <span class="classifier-delimiter">:</span> <span class="classifier">[int] Number of successes in a sample drawn from a population.</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/4be87969a20371f35ea1bc341f3e28c6138f38ce.png" alt="\max(0, draws-failures) \leq x \leq \min(draws, success)"/></p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><cite>n</cite> : [int] Size of sample drawn from the population.</p>
+</li>
+<li><p class="first"><cite>m</cite> : [int] Number of successes in the population.</p>
+</li>
+<li><p class="first"><cite>N</cite> : [int] Total number of units in the population.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><img class="math" src="_images/math/36be537c61aa3a07f0c634d67028b5fe599b5352.png" alt="E(X) = \frac{n n}{N}"/></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.inverse_gamma_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">inverse_gamma_like</tt><big>(</big><em>x</em>, <em>alpha</em>, <em>beta</em><big>)</big><a class="headerlink" href="#pymc.distributions.inverse_gamma_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>inverse_gamma_like(x, alpha, beta)</p>
+<p>Inverse gamma log-likelihood, the reciprocal of the gamma distribution.</p>
+<div class="math">
+<p><img src="_images/math/ab5dd7b10a6b09c2192dc593a044a80f23129ba2.png" alt="f(x \mid \alpha, \beta) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{-\alpha - 1} \exp\left(\frac{-\beta}{x}\right)" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : x &gt; 0</li>
+<li><cite>alpha</cite> : Shape parameter (alpha &gt; 0).</li>
+<li><cite>beta</cite> : Scale parameter (beta &gt; 0).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><img class="math" src="_images/math/6191fed9e582b4cec0f81190a5da6b8d52638d4b.png" alt="E(X)=\frac{1}{\beta(\alpha-1)}"/>  for <img class="math" src="_images/math/cc2e71eb8e237e1e4e80913b1db13022a9768071.png" alt="\alpha &gt; 1"/>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.laplace_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">laplace_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.laplace_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>laplace_like(x, mu, tau)</p>
+<p>Laplace (double exponential) log-likelihood.</p>
+<p>The Laplace (or double exponential) distribution describes the
+difference between two independent, identically distributed exponential
+events. It is often used as a heavier-tailed alternative to the normal.</p>
+<div class="math">
+<p><img src="_images/math/2e2e184a435700e83a85cde45ed602311078dbc7.png" alt="f(x \mid \mu, \tau) = \frac{\tau}{2}e^{-\tau |x-\mu|}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : <img class="math" src="_images/math/c7a38fe1882faf425767fabbf7727e46a18ed221.png" alt="-\infty &lt; x &lt; \infty"/></li>
+<li><cite>mu</cite> : Location parameter :math: <cite>-infty &lt; mu &lt; infty</cite></li>
+<li><cite>tau</cite> : Scale parameter <img class="math" src="_images/math/8c166406337718e3cb83eaa6456e27c2f2afcc20.png" alt="\tau &gt; 0"/></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/9a535ca05e5c70e42ba382b82a92daa5110d3cc5.png" alt="E(X) = \mu"/></li>
+<li><img class="math" src="_images/math/d5d15181e38aabe82b4623e772ee76e42840e62a.png" alt="Var(X) = \frac{2}{\tau^2}"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.logistic_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">logistic_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.logistic_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>logistic_like(x, mu, tau)</p>
+<p>Logistic log-likelihood.</p>
+<p>The logistic distribution is often used as a growth model; for example,
+populations, markets. Resembles a heavy-tailed normal distribution.</p>
+<div class="math">
+<p><img src="_images/math/78700f650feb22c4e6ed5c03f5212a95c07716ea.png" alt="f(x \mid \mu, tau) = \frac{\tau \exp(-\tau[x-\mu])}{[1 + \exp(-\tau[x-\mu])]^2}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : <img class="math" src="_images/math/c7a38fe1882faf425767fabbf7727e46a18ed221.png" alt="-\infty &lt; x &lt; \infty"/></li>
+<li><cite>mu</cite> : Location parameter :math: <cite>-infty &lt; mu &lt; infty</cite></li>
+<li><cite>tau</cite> : Scale parameter (tau &gt; 0)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/9a535ca05e5c70e42ba382b82a92daa5110d3cc5.png" alt="E(X) = \mu"/></li>
+<li><img class="math" src="_images/math/2c37500098081f063a9327a49847dff1d1b1cdb9.png" alt="Var(X) = \frac{\pi^2}{3\tau^2}"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.lognormal_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">lognormal_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.lognormal_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>lognormal_like(x, mu, tau)</p>
+<p>Log-normal log-likelihood. Distribution of any random variable whose
+logarithm is normally distributed. A variable might be modeled as
+log-normal if it can be thought of as the multiplicative product of many
+small independent factors.</p>
+<div class="math">
+<p><img src="_images/math/e4a48a8ef970551da0da776776fa5468f938e6c8.png" alt="f(x \mid \mu, \tau) = \sqrt{\frac{\tau}{2\pi}}\frac{
+\exp\left\{ -\frac{\tau}{2} (\ln(x)-\mu)^2 \right\}}{x}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : x &gt; 0</li>
+<li><cite>mu</cite> : Location parameter.</li>
+<li><cite>tau</cite> : Scale parameter (tau &gt; 0).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><img class="math" src="_images/math/d64e5741bee4cfad8f52be54eae8d4df3b33978d.png" alt="E(X)=e^{\mu+\frac{1}{2\tau}}"/></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.normal_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">normal_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.normal_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>normal_like(x, mu, tau)</p>
+<p>Normal log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/bef110b22c9587def3b01bb520b53b6429bc0571.png" alt="f(x \mid \mu, \tau) = \sqrt{\frac{\tau}{2\pi}} \exp\left\{ -\frac{\tau}{2} (x-\mu)^2 \right\}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : Input data.</li>
+<li><cite>mu</cite> : Mean of the distribution.</li>
+<li><cite>tau</cite> : Precision of the distribution, which corresponds to 1/sigma**2 (tau &gt; 0).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/9a535ca05e5c70e42ba382b82a92daa5110d3cc5.png" alt="E(X) = \mu"/></li>
+<li><img class="math" src="_images/math/ab3bc92841f572b3f77ea956d3cdc0b3a3420fd6.png" alt="Var(X) = 1/\tau"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.skew_normal_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">skew_normal_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em>, <em>alpha</em><big>)</big><a class="headerlink" href="#pymc.distributions.skew_normal_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>skew_normal_like(x, mu, tau, alpha)</p>
+<p>Azzalini&#8217;s skew-normal log-likelihood</p>
+<div class="math">
+<p><img src="_images/math/4449f93b4e7c6f57109ed09f28936bc4bf425ff6.png" alt="f(x \mid \mu, \tau, \alpha) = 2 \Phi((x-\mu)\sqrt{\tau}\alpha) \phi(x,\mu,\tau)" />
+</div></p><p>where :math: Phi is the normal CDF and :math: phi is the normal PDF.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Input data.</p>
+</dd>
+<dt>mu <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Mean of the distribution.</p>
+</dd>
+<dt>tau <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Precision of the distribution, &gt; 0.</p>
+</dd>
+<dt>alpha <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Shape parameter of the distribution.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>See <a class="reference external" href="http://azzalini.stat.unipd.it/SN/">http://azzalini.stat.unipd.it/SN/</a></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.t_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">t_like</tt><big>(</big><em>x</em>, <em>nu</em><big>)</big><a class="headerlink" href="#pymc.distributions.t_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>t_like(x, nu)</p>
+<p>Student&#8217;s T log-likelihood. Describes a zero-mean normal variable whose precision is
+gamma distributed. Alternatively, describes the mean of several zero-mean normal
+random variables divided by their sample standard deviation.</p>
+<div class="math">
+<p><img src="_images/math/76862cd76710078b0570ebebe005e725a5d6968e.png" alt="f(x \mid \nu) = \frac{\Gamma(\frac{\nu+1}{2})}{\Gamma(\frac{\nu}{2}) \sqrt{\nu\pi}} \left( 1 + \frac{x^2}{\nu} \right)^{-\frac{\nu+1}{2}}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>x <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Input data.</p>
+</dd>
+<dt>nu <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Degrees of freedom.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.truncnorm_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">truncnorm_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em>, <em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#pymc.distributions.truncnorm_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>truncnorm_like(x, mu, tau, a, b)</p>
+<p>Truncated normal log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/1d58681ecd77e08ce9b914fff611412474dd1e59.png" alt="f(x \mid \mu, \tau, a, b) = \frac{\phi(\frac{x-\mu}{\sigma})} {\Phi(\frac{b-\mu}{\sigma}) - \Phi(\frac{a-\mu}{\sigma})}," />
+</div></p><p>where <img class="math" src="_images/math/4d41283e159839d4b721df03bff9cbfbae09fec3.png" alt="\sigma^2=1/\tau"/>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : Input data.</li>
+<li><cite>mu</cite> : Mean of the distribution.</li>
+<li><cite>tau</cite> : Precision of the distribution, which corresponds to 1/sigma**2 (tau &gt; 0).</li>
+<li><cite>a</cite> : Left bound of the distribution.</li>
+<li><cite>b</cite> : Right bound of the distribution.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.uniform_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">uniform_like</tt><big>(</big><em>x</em>, <em>lower</em>, <em>upper</em><big>)</big><a class="headerlink" href="#pymc.distributions.uniform_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>uniform_like(x, lower, upper)</p>
+<p>Uniform log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/2358a7176dee4dac02295a17f0019b634b8c927a.png" alt="f(x \mid lower, upper) = \frac{1}{upper-lower}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : <img class="math" src="_images/math/ba9396284e9c2876b0204b3c03bd4b9e68df0c8e.png" alt="lower \leq x \leq upper"/></li>
+<li><cite>lower</cite> : Lower limit.</li>
+<li><cite>upper</cite> : Upper limit (upper &gt; lower).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.von_mises_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">von_mises_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>kappa</em><big>)</big><a class="headerlink" href="#pymc.distributions.von_mises_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>von_mises_like(x, mu, kappa)</p>
+<p>von Mises log-likelihood.</p>
+<div class="math">
+<p><img src="_images/math/d2933ab7501f05ae2a126b8346f1e48e9ea33686.png" alt="f(x \mid \mu, k) = \frac{e^{k \cos(x - \mu)}}{2 \pi I_0(k)}" />
+</div></p><p>where <cite>I_0</cite> is the modified Bessel function of order 0.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : Input data.</li>
+<li><cite>mu</cite> : Mean of the distribution.</li>
+<li><cite>kappa</cite> : Dispersion of the distribution</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/9a535ca05e5c70e42ba382b82a92daa5110d3cc5.png" alt="E(X) = \mu"/></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.weibull_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">weibull_like</tt><big>(</big><em>x</em>, <em>alpha</em>, <em>beta</em><big>)</big><a class="headerlink" href="#pymc.distributions.weibull_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>weibull_like(x, alpha, beta)</p>
+<p>Weibull log-likelihood</p>
+<div class="math">
+<p><img src="_images/math/deee115b61f3d3e57a4ef7c7031dc160d13358a4.png" alt="f(x \mid \alpha, \beta) = \frac{\alpha x^{\alpha - 1}
+\exp(-(\frac{x}{\beta})^{\alpha})}{\beta^\alpha}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : <img class="math" src="_images/math/dff5a847457c4beaa2c6809fc9d7b26ebcaa398e.png" alt="x \ge 0"/></li>
+<li><cite>alpha</cite> : alpha &gt; 0</li>
+<li><cite>beta</cite> : beta &gt; 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/add00ef0febf1568f0b3b9636bc98ce7f7554928.png" alt="E(x)=\beta \Gamma(1+\frac{1}{\alpha})"/></li>
+<li><img class="math" src="_images/math/6feba488bc727bea2582d10af6ccb3ba6ff281a4.png" alt="Var(x)=\beta^2 \Gamma(1+\frac{2}{\alpha} - \mu^2)"/></li>
+</ul>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="multivariate-discrete-distributions">
+<h2>9.3. Multivariate discrete distributions<a class="headerlink" href="#multivariate-discrete-distributions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pymc.distributions.multivariate_hypergeometric_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">multivariate_hypergeometric_like</tt><big>(</big><em>x</em>, <em>m</em><big>)</big><a class="headerlink" href="#pymc.distributions.multivariate_hypergeometric_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>multivariate_hypergeometric_like(x, m)</p>
+<p>The multivariate hypergeometric describes the probability of drawing x[i]
+elements of the ith category, when the number of items in each category is
+given by m.</p>
+<div class="math">
+<p><img src="_images/math/e849641491f8a395cf949bfc8aef8779e2fe724b.png" alt="\frac{\prod_i \binom{m_i}{x_i}}{\binom{N}{n}}" />
+</div></p><p>where <img class="math" src="_images/math/7c13f43a8da7e764d1f7b87b11ddc771c0d1b3dc.png" alt="N = \sum_i m_i"/> and <img class="math" src="_images/math/076d17bb33697bfdd63133715bcd7be1cb7a63f0.png" alt="n = \sum_i x_i"/>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite> : [int sequence] Number of draws from each category, (x &lt; m).</li>
+<li><cite>m</cite> : [int sequence] Number of items in each categoy.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.multinomial_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">multinomial_like</tt><big>(</big><em>x</em>, <em>n</em>, <em>p</em><big>)</big><a class="headerlink" href="#pymc.distributions.multinomial_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>multinomial_like(x, n, p)</p>
+<p>Multinomial log-likelihood. Generalization of the binomial
+distribution, but instead of each trial resulting in &#8220;success&#8221; or
+&#8220;failure&#8221;, each one results in exactly one of some fixed finite number k
+of possible outcomes over n independent trials. &#8216;x[i]&#8217; indicates the number
+of times outcome number i was observed over the n trials.</p>
+<div class="math">
+<p><img src="_images/math/a0727cf9a353270f37f7d4df72e8c372c2da92e1.png" alt="f(x \mid n, p) = \frac{n!}{\prod_{i=1}^k x_i!} \prod_{i=1}^k p_i^{x_i}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last">
+<li><dl class="first docutils">
+<dt><cite>x</cite> <span class="classifier-delimiter">:</span> <span class="classifier">[(ns, k) int] Random variable indicating the number of time outcome i is observed,</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/9be163b180d234daa83f5b9f65a30e5834eaa6d6.png" alt="\sum_{i=1}^k x_i=n"/>, <img class="math" src="_images/math/776b169177c60c00379287244ddfa04a4caff0b1.png" alt="x_i \ge 0"/>.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><cite>n</cite> : [int] Number of trials.</p>
+</li>
+<li><dl class="first docutils">
+<dt><cite>p</cite> <span class="classifier-delimiter">:</span> <span class="classifier">(k,) Probability of each one of the different outcomes,</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/02e314600f6665ac7caeca81c8b6bb5ab9dd3f93.png" alt="\sum_{i=1}^k p_i = 1)"/>, <img class="math" src="_images/math/f87070b59270ce9e9a19deed36f21baeed96026e.png" alt="p_i \ge 0"/>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><img class="math" src="_images/math/fcdd4bb452d86abe5522fad98a57642990aa21e5.png" alt="E(X_i)=n p_i"/></li>
+<li><img class="math" src="_images/math/31c4e7cce21b24f669882f6038d71cd60c3dac69.png" alt="var(X_i)=n p_i(1-p_i)"/></li>
+<li><img class="math" src="_images/math/1a84a820fc0dd2309755323673ecdbb9af4c6d5c.png" alt="cov(X_i,X_j) = -n p_i p_j"/></li>
+</ul>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="multivariate-continuous-distributions">
+<h2>9.4. Multivariate continuous distributions<a class="headerlink" href="#multivariate-continuous-distributions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pymc.distributions.dirichlet_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">dirichlet_like</tt><big>(</big><em>x</em>, <em>theta</em><big>)</big><a class="headerlink" href="#pymc.distributions.dirichlet_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>dirichlet_like(x, theta)</p>
+<p>Dirichlet log-likelihood.</p>
+<p>This is a multivariate continuous distribution.</p>
+<div class="math">
+<p><img src="_images/math/2dfa38f833c8248cb085a37599faff22c353d257.png" alt="f(\mathbf{x}) = \frac{\Gamma(\sum_{i=1}^k \theta_i)}{\prod \Gamma(\theta_i)} \prod_{i=1}^k x_i^{\theta_i - 1}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last">
+<li><dl class="first docutils">
+<dt><cite>x</cite> <span class="classifier-delimiter">:</span> <span class="classifier">An (n,k-1) array where <cite>n</cite> is the number of samples and <cite>k</cite> the dimension.</span></dt>
+<dd><p class="first last"><img class="math" src="_images/math/8f460637dac6c2cee8afb89ca3ea23ad374e133b.png" alt="0 &lt; x_i &lt; 1"/>,  <img class="math" src="_images/math/df4462d9ceb82a9289ef259762c22bae0d7967ec.png" alt="\sum_{i=1}^{k-1} x_i &lt; 1"/></p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><cite>theta</cite> : An (n,k) or (1,k) array &gt; 0.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.inverse_wishart_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">inverse_wishart_like</tt><big>(</big><em>X</em>, <em>n</em>, <em>Tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.inverse_wishart_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>inverse_wishart_like(X, n, Tau)</p>
+<p>Inverse Wishart log-likelihood. The inverse Wishart distribution is the conjugate
+prior for the covariance matrix of a multivariate normal distribution.</p>
+<div class="math">
+<p><img src="_images/math/34d0b784de7f40e9d410c512b35789fc56d12285.png" alt="f(X \mid n, T) = \frac{{\mid T \mid}^{n/2}{\mid X \mid}^{(n-k-1)/2} \exp\left\{ -\frac{1}{2} Tr(TX^{-1}) \right\}}{2^{nk/2} \Gamma_p(n/2)}" />
+</div></p><p>where <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> is the rank of X.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>X</cite> : Symmetric, positive definite matrix.</li>
+<li><cite>n</cite> : [int] Degrees of freedom (n &gt; 0).</li>
+<li><cite>Tau</cite> : Symmetric and positive definite matrix.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.mv_normal_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">mv_normal_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.mv_normal_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>mv_normal_like(x, mu, tau)</p>
+<p>Multivariate normal log-likelihood</p>
+<div class="math">
+<p><img src="_images/math/fd5303e8ae6deb7e4d5c5efe75d0d5da8ae0aee2.png" alt="f(x \mid \pi, T) = \frac{T^{n/2}}{(2\pi)^{1/2}} \exp\left\{ -\frac{1}{2} (x-\mu)^{\prime}T(x-\mu) \right\}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><cite>x</cite>: (n,k)</li>
+<li><cite>mu</cite>: (k) Location parameter sequence.</li>
+<li><cite>tau</cite>: (k,k) Positive definite precision matrix.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a title="pymc.distributions.mv_normal_chol_like" class="reference internal" href="#pymc.distributions.mv_normal_chol_like"><tt class="xref docutils literal"><span class="pre">mv_normal_chol_like()</span></tt></a>, <a title="pymc.distributions.mv_normal_cov_like" class="reference internal" href="#pymc.distributions.mv_normal_cov_like"><tt class="xref docutils literal"><span class="pre">mv_normal_cov_like()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.mv_normal_chol_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">mv_normal_chol_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>sig</em><big>)</big><a class="headerlink" href="#pymc.distributions.mv_normal_chol_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>mv_normal_like(x, mu, tau)</p>
+<p>Multivariate normal log-likelihood</p>
+<div class="math">
+<p><img src="_images/math/76c8b1528daa5d642157860d5134f271a6d81c9d.png" alt="f(x \mid \pi, \sigma) = \frac{T^{n/2}}{(2\pi)^{1/2}} \exp\left\{ -\frac{1}{2} (x-\mu)^{\prime}(\sigma \sigma^{\prime})^{-1}(x-\mu) \right\}" />
+</div></p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body">x : (n,k)
+mu : (k)
+sigma : (k,k)
+sigma lower triangular</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a title="pymc.distributions.mv_normal_like" class="reference internal" href="#pymc.distributions.mv_normal_like"><tt class="xref docutils literal"><span class="pre">mv_normal_like()</span></tt></a>, <a title="pymc.distributions.mv_normal_cov_like" class="reference internal" href="#pymc.distributions.mv_normal_cov_like"><tt class="xref docutils literal"><span class="pre">mv_normal_cov_like()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.mv_normal_cov_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">mv_normal_cov_like</tt><big>(</big><em>x</em>, <em>mu</em>, <em>C</em><big>)</big><a class="headerlink" href="#pymc.distributions.mv_normal_cov_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>mv_normal_cov_like(x, mu, C)</p>
+<p>Multivariate normal log-likelihood</p>
+<div class="math">
+<p><img src="_images/math/0892742c3be490ad6c407075539136b0b4235e33.png" alt="f(x \mid \pi, C) = \frac{T^{n/2}}{(2\pi)^{1/2}} \exp\left\{ -\frac{1}{2} (x-\mu)^{\prime}C^{-1}(x-\mu) \right\}" />
+</div></p><p>x: (n,k)
+mu: (k)
+C: (k,k)
+C positive definite</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a title="pymc.distributions.mv_normal_like" class="reference internal" href="#pymc.distributions.mv_normal_like"><tt class="xref docutils literal"><span class="pre">mv_normal_like()</span></tt></a>, <a title="pymc.distributions.mv_normal_chol_like" class="reference internal" href="#pymc.distributions.mv_normal_chol_like"><tt class="xref docutils literal"><span class="pre">mv_normal_chol_like()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.wishart_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">wishart_like</tt><big>(</big><em>X</em>, <em>n</em>, <em>Tau</em><big>)</big><a class="headerlink" href="#pymc.distributions.wishart_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>wishart_like(X, n, Tau)</p>
+<p>Wishart log-likelihood. The Wishart distribution is the probability
+distribution of the maximum-likelihood estimator (MLE) of the precision
+matrix of a multivariate normal distribution. If Tau=1, the distribution
+is identical to the chi-square distribution with n degrees of freedom.</p>
+<p>For an alternative parameterization based on <img class="math" src="_images/math/bf0c918abec9527185b80ab01bac5728e4260904.png" alt="C=T{-1}"/>, see
+<cite>wishart_cov_like</cite>.</p>
+<div class="math">
+<p><img src="_images/math/80e94b3f2ece2e29d34fb09ed4b2863ac81fa9c9.png" alt="f(X \mid n, T) = {\mid T \mid}^{n/2}{\mid X \mid}^{(n-k-1)/2} \exp\left\{ -\frac{1}{2} Tr(TX) \right\}" />
+</div></p><p>where <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> is the rank of X.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>X <span class="classifier-delimiter">:</span> <span class="classifier">matrix</span></dt>
+<dd><p class="first last">Symmetric, positive definite.</p>
+</dd>
+<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Degrees of freedom, &gt; 0.</p>
+</dd>
+<dt>Tau <span class="classifier-delimiter">:</span> <span class="classifier">matrix</span></dt>
+<dd><p class="first last">Symmetric and positive definite</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymc.distributions.wishart_cov_like">
+<tt class="descclassname">pymc.distributions.</tt><tt class="descname">wishart_cov_like</tt><big>(</big><em>X</em>, <em>n</em>, <em>C</em><big>)</big><a class="headerlink" href="#pymc.distributions.wishart_cov_like" title="Permalink to this definition">¶</a></dt>
+<dd><p>wishart_like(X, n, C)</p>
+<p>Wishart log-likelihood. The Wishart distribution is the probability
+distribution of the maximum-likelihood estimator (MLE) of the covariance
+matrix of a multivariate normal distribution. If C=1, the distribution
+is identical to the chi-square distribution with n degrees of freedom.</p>
+<p>For an alternative parameterization based on <img class="math" src="_images/math/40ad4e00c17d26c5a2b383125cdf4eb8ed96cb49.png" alt="T=C{-1}"/>, see
+<cite>wishart_like</cite>.</p>
+<div class="math">
+<p><img src="_images/math/5a6b7a0435d9ff89de04c9e8d023bb0feb7cd80c.png" alt="f(X \mid n, C) = {\mid C^{-1} \mid}^{n/2}{\mid X \mid}^{(n-k-1)/2} \exp\left\{ -\frac{1}{2} Tr(C^{-1}X) \right\}" />
+</div></p><p>where <img class="math" src="_images/math/8c325612684d41304b9751c175df7bcc0f61f64f.png" alt="k"/> is the rank of X.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>X <span class="classifier-delimiter">:</span> <span class="classifier">matrix</span></dt>
+<dd><p class="first last">Symmetric, positive definite.</p>
+</dd>
+<dt>n <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Degrees of freedom, &gt; 0.</p>
+</dd>
+<dt>C <span class="classifier-delimiter">:</span> <span class="classifier">matrix</span></dt>
+<dd><p class="first last">Symmetric and positive definite</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
